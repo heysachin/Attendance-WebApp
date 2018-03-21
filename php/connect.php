@@ -1,5 +1,5 @@
 <?php
 
-$db = mysqli_connect( 'localhost' , 'root' ,'root','mess' ) ;
+$db = mysqli_connect( 'localhost' , 'root' ,'root','attendance' ) ;
 
 ?>

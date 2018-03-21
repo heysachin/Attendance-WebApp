@@ -23,7 +23,7 @@
 		//$_SESSION['id']=$row['rollno'];
 		$_SESSION['role']="admin";
 
-		header('Location:../newstudent1.php');
+		header('Location:../attendance.php');
 
 
 
