@@ -64,8 +64,8 @@
 									</div>
 
 									<div class="col_full">
-										<label for="login-form-password">Room Number:</label>
-										<input type="password" name="password" placeholder="Room No" id="form-password" class="form-control not-dark" />
+										<label for="login-form-password"> Password:</label>
+										<input type="password" name="password" placeholder="Password" id="form-password" class="form-control not-dark" />
 									</div>
 
 									<div class="col_full nobottommargin">

@@ -20,7 +20,7 @@
 
 	<!-- Document Title
 	============================================= -->
-	<title>Session Expired | Tricodia Mess Calulator</title>
+	<title>Session Expired | Tricodia Attendance</title>
 
 </head>
 

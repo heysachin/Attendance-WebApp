@@ -20,7 +20,7 @@
 
 	<!-- Document Title
 	============================================= -->
-	<title>Check Credentials | Tricodia Mess Calulator</title>
+	<title>Check Credentials | Tricodia Attendance</title>
 
 </head>
 

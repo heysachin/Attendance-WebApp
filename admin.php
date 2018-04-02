@@ -20,7 +20,7 @@
 
 	<!-- Document Title
 	============================================= -->
-	<title>Login - Students Login</title>
+	<title>Login - Admin Login</title>
 
 </head>
 
@@ -29,7 +29,7 @@
     session_start();
     if(isset($_SESSION["user"]))
     {
-        header("location:php/autologin.php");
+        header("location:php/autologin1.php");
     }
 ?>
 

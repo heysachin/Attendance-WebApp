@@ -3991,7 +3991,7 @@ tbody.collapse.show {
 }
 
 .navbar-dark .navbar-brand {
-  color: #fff;
+  color: #1982bb;
 }
 
 .navbar-dark .navbar-brand:focus, .navbar-dark .navbar-brand:hover {
@@ -5721,7 +5721,7 @@ a.bg-light:focus, a.bg-light:hover {
 }
 
 .bg-dark {
-  background-color: #343a40 !important;
+  background-color: #1982bb; !important;
 }
 
 a.bg-dark:focus, a.bg-dark:hover {
