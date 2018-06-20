@@ -1,7 +1,7 @@
 <?php
-require("php/connect.php");
+require("connect.php");
 $sub = $_POST['subject'];
-$sql = "select st.Fname FN,st.Lname LN, sb.Sid ,st.StudId from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and sb.Sid LIKE '$sub'";
+$sql = "select st.Fname FN,st.Lname LN, sb.Sid ,st.StudId SID from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and sb.Sid LIKE '$sub'";
 $result = $conn->query($sql);
 
 
@@ -11,16 +11,16 @@ echo "
     <thead class='thead-dark'>
         <tr>
             <th>Name</th>
-            <th>Internals</th>
+            <th>Absent</th>
         </tr>
     </thead>
     <tbody>";
 while($row=$result->fetch_assoc())
 {
-
+$SID = $row['SID'];
         echo "<tr>
                 <td>" .$row["FN"]. " " . $row["LN"]. "</td>
-                <td><input type = 'number' name='marks[]'></td>
+                <td><input value = '$SID' type = 'checkbox' name='StudId[]'></td>
             </tr>
         <br>" ;
 

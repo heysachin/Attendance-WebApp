@@ -6,7 +6,7 @@
 	}
 
 
-	require("../connect.php");
+	require("connect.php");
 
 
 	$user=$_POST["email"];

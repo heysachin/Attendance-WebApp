@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    if($_SESSION["role"]!="student")
+    {
+        header("location:php/autologin.php");
+    }
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <title>Report page</title>
@@ -11,20 +18,12 @@
         <script src="js/jquery.js"></script>
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.js"></script>
-    <?php
-error_reporting(0);
-ini_set('display_errors', 0);
-    session_start();
-    if($_SESSION["role"]!="student")
-    {
-        header("location:php/autologin.php");
-    }
-?>
+
         
         <div>
             <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
                 <!-- Brand -->
-                <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo.png"> Individual Report Calculator</a>
+                <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo1.png"> Individual Report Calculator</a>
 
                 <!-- Toggler/collapsibe Button -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -36,13 +35,13 @@ ini_set('display_errors', 0);
                     <ul class="navbar-nav">
 
                         <li class="nav-item">
-                            <a href=display.php class="nav-link active">Reports</a>
+                            <a href="display.php" class="nav-link active">Reports</a>
                         </li>
                         <li class="nav-item">
-                            <a href=pdf.php class="nav-link active">Export as PDF</a>
+                            <a href="php/pdf.php" class="nav-link active">Export as PDF</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link" href="logout.php"><strong>Logout</strong></a>
+                            <a class="nav-link" href="php/logout.php"><strong>Logout</strong></a>
                         </li>
                     </ul>
                 </div>
@@ -74,7 +73,7 @@ ini_set('display_errors', 0);
                                     <tbody>
 
 <?php
-require("connect.php");
+require("php/connect.php");
 
 // Check connection
 if ($conn->connect_error) {
@@ -146,7 +145,7 @@ $conn->close();
                                     <tbody>
 
 <?php
-require("connect.php");
+require("php/connect.php");
 
 // Check connection
 if ($conn->connect_error) {

@@ -1,31 +1,21 @@
 <?php
+session_start();
 require("connect.php");
-// print_r($_POST["StudId"]);
-
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 else
 {
 echo "connected";
-
 }
 print_r($_POST);
-session_start();
 $sub=$_POST["subject"];
 $date=$_POST["date"];
 $Tid=$_SESSION['id'];
 
 $sql = "select st.StudId as SID from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and sb.Sid LIKE '$sub'";
-// $sql="select * from student";
 $StudId=$_POST['StudId'];
 $result = $conn->query($sql);
-// echo mysqli_error($conn);
-// while ($result1->fetch_assoc()) {
-//   echo $result1['StudId'];
-//
-// }
 
 while($row = $result->fetch_assoc()) {
   $SID=$row['SID'];

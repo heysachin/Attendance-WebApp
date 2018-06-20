@@ -1,8 +1,5 @@
-
-
 <?php
-
-require("connect.php");
+require("php/connect.php");
 $sub = $_POST['subject'];
 $sql = "select st.Fname FN,st.Lname LN, sb.Sid ,st.StudId SID from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and sb.Sid LIKE '$sub'";
 $result = $conn->query($sql);

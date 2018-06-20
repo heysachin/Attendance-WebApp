@@ -1,3 +1,10 @@
+<?php 
+session_start(); 
+if(isset($_SESSION["user"]))
+    {
+        header("location:php/autologin.php");
+    }
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
@@ -25,13 +32,6 @@
 </head>
 
 <body class="stretched">
-	<?php
-    session_start();
-    if(isset($_SESSION["user"]))
-    {
-        header("location:php/autologin.php");
-    }
-?>
 
 	<!-- Document Wrapper
 	============================================= -->
@@ -50,7 +50,7 @@
 					<div class="container-fluid vertical-middle divcenter clearfix">
 
 						<div class="center">
-							<a href="index.php"><img src="images/logo.png" style="height: 200px" alt="Canvas Logo"></a>
+							<a href="index.php"><img src="images/logo1.png" style="height: 200px" alt="Canvas Logo"></a>
 						</div>
 
 						<div class="card divcenter noradius noborder" style="max-width: 400px; background-color: rgba(255,255,255,0.93);">

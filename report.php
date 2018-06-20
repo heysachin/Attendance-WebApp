@@ -4,6 +4,7 @@
     {
         header("location:php/autologin.php");
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,28 +13,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Upload Attendance</title>
+    <title>Report</title>
 
-
-    <script>
+<script>
 function stud_suggestion()
 {
-var book = document.getElementById("sub_select").value;
+var subject = document.getElementById("sub_select").value;
 var xhr;
  if (window.XMLHttpRequest) { // Mozilla, Safari, ...
     xhr = new XMLHttpRequest();
 } else if (window.ActiveXObject) { // IE 8 and older
     xhr = new ActiveXObject("Microsoft.XMLHTTP");
 }
-var data = "subject=" + book;
-     xhr.open("POST", "php/std-att-suggest.php", true); 
+var data = "subject=" + subject;
+     xhr.open("POST", "php/stud-report.php", true); 
      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");                  
      xhr.send(data);
      xhr.onreadystatechange = display_data;
     function display_data() {
      if (xhr.readyState == 4) {
       if (xhr.status == 200) {
-       //alert(xhr.responseText);      
       document.getElementById("students").innerHTML = xhr.responseText;
       } else {
         alert('There was a problem with the request.');
@@ -47,15 +46,14 @@ var data = "subject=" + book;
 <body>
 
         <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/multiple-select.css">
+
         <script src="js/jquery.js"></script>
-        <script src="js/multiple-select.js"></script>
 
         <script src="js/popper.js"></script>
         <script src="js/bootstrap.js"></script>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
             <!-- Brand -->
-            <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo1.png"> Attendance System</a>
+            <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo1.png"> Internals System</a>
 
             <!-- Toggler/collapsibe Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -66,31 +64,31 @@ var data = "subject=" + book;
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href=attendance.php class="nav-link active">New Attendance</a>
+                        <a href=attendance.php class="nav-link ">New Attendance</a>
                     </li>
                     <li class="nav-item">
                         <a href=internals.php class="nav-link ">Add Internals</a>
                     </li>
                     <li class="nav-item">
-                        <a href=report.php class="nav-link">View Report</a>
+                        <a href=report.php class="nav-link active">View Report</a>
                     </li>
                     <li class="nav-item">
                         <a href=profile.php class="nav-link ">Profile</a>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item active">
                         <a class="nav-link" href="php/logout1.php">Logout</a>
                     </li>
 
                 </ul>
             </div>
         </nav>
-        <br>
-        <br>
+        <br>    
+        <br>    
         <br>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h3 class="display-4">New Attendance</h3>
-                <p class="lead">You can Add the Attendance details here</p>
+                <h3 class="display-4">View The Complete Report</h3>
+                <p class="lead">Please Select The Class And Subject to View the Attendance</p>
             </div>
         </div>
         <div class="row">
@@ -106,7 +104,7 @@ var data = "subject=" + book;
                                         Confirm Submit
                                     </div>
                                     <div class="modal-body">
-                                        Are you sure to submit the following Absentees details?
+                                        Are you sure to submit the following details?
                                         <div id="modal_content">
                                         </div>
                                     </div>
@@ -117,19 +115,16 @@ var data = "subject=" + book;
                                 </div>
                             </div>
                         </div>
-                        <form onsubmit=" event.preventDefault(); validate();" id="data_form" action="php/ctable.php" method="post">
-                            <div class='form-group'>
+                        <form onsubmit=" event.preventDefault(); validate();" id="data_form" action="php/internalupload.php" method="post">
+
                               <?php
                               echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>";
 
                                ?>
-                                <p>Date:
-                                    <input type="text" id="datepicker" name="date" required>
-                                </p>
-                                <b>Select the Subject</b>
+                                
+                                <b>Select the Subject</b><br>
 <?php
 require("php/connect.php");
-
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
@@ -137,13 +132,10 @@ if ($conn->connect_error) {
 else
 {
 //echo "connected";
-
 }
-
 echo "<select class='form-control' name='subject' id='sub_select' onchange='stud_suggestion()' required>
 
-    <option>Select a Subject</option>";
-console.log("qwertyuio");
+<option>Select a Subject</option>";
 $SID=$_SESSION['id'];
 $_POST['SID']=$SID;
 echo $_POST['SID'];
@@ -152,112 +144,19 @@ $row = mysqli_num_rows($sql2);
 
 while ($row = mysqli_fetch_array($sql2)){
 echo "<option value='".$row['Sid']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
- }
-// echo "</select>";
-
-// echo "<br>
-// <br>
-// <b>Select the Student Absentees</b>";
-
-// echo "
-// <select multiple='multiple' name='StudId[]'' id='StudId' required>";
-
-
-// $sql3 = mysqli_query($conn, "SELECT * From student");
-// $row = mysqli_num_rows($sql3);
-
-// while ($row = mysqli_fetch_array($sql3)){
-// echo "<option value='".$row['StudId']."'>\t".$row['StudId']." - ".$row['Fname']." ".$row['Lname']."</option>" ;
-// }
-// echo "</select>";
-// echo "<script>
-//                                     $('select').multipleSelect({
-
-//                                         filter: true,
-//                                         width: '100%'
-//                                     });
-//                                 </script>";
-
+}
+echo "</select>";
 ?>
-</select>
- <div id="students"></div>
-                                        <br/>
-                                        <br/>
-
-                                        <input type="submit" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-primary" />
-                                        <!--input type="button" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-default" /-->
-
+                
+                <div id="students"></div>
                             </div>
                         </form>
 </body>
 
-<!-- validation function-->
-<script>
-    $('#submitBtn').click(function() {
-        /* when the button in the form, display the entered values in the modal */
-        $('#lname').text($('#lastname').val());
-        $('#fname').text($('#firstname').val());
-    });
 
-    $('#submit').click(function() {
-        /* when the submit button in the modal is clicked, submit the form */
-        //alert('submitting');
-        //$('#data_form').submit();
-    });
-
-    function validate(form) {
-
-        // validation code here ...
-
-        //event.preventDefault();
-        var searchIDs = $("#StudId option:selected").map(function() {
-            return $(this).text();
-        }).get(); // <----
-        console.log(searchIDs);
-        //alert(searchIDs);
-        var itemname = document.getElementById("StudId");
-        var strUser = itemname.options[itemname.selectedIndex].value;
-        console.log(strUser);
-
-        var html2 = "<table  class='table'><th>Name of Absentees</th>";
-        for (var i = 0; i < searchIDs.length; i++) {
-            html2 += "<tr>";
-            html2 += "<td>" + searchIDs[i] + "</td>";
-            html2 += "</tr>";
-
-        }
-        html2 += "</table>";
-        document.getElementById("modal_content").innerHTML = html2;
-        //$('#confirm-submit').modal('show');
-        $("#submitBtn").click()
-
-        //document.getElementById("modal_content").innerHTML=
-        //return false;
-        //return confirm('Selected item is '+strUser+'     Selected roll numbers are '+searchIDs+'. Submit the bill?');
-
-        //return confirm('Do you really want to submit the form?');
-
-    }
-
-    //send data
-    function senddata() {
-
-        //alert("hii");
-        document.getElementById("data_form").submit(); // Form submission
-    }
-</script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-    $(function() {
-        var date = $('#datepicker').datepicker({
-            dateFormat: 'dd-mm-yy'
-        }).val();
-        $("#datepicker").datepicker();
-
-    });
-</script>
 
 </html>

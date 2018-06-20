@@ -41,7 +41,7 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo" class="divcenter">
-						<a href="index.php" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="Canvas Logo" class="divcenter"></a>
+						<a href="index.php" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo1.png" alt="Canvas Logo" class="divcenter"></a>
 						<a href="index.php" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
 					</div><!-- #logo end -->
 
@@ -68,7 +68,7 @@
 						<h1>Session Expired!!!</h1>
 						<span>Please Login Again.</span>
 						<br><br><br>
-						<a href="logout.php" class="button button-xlarge button-circle button-blue"><i class="icon-warning-sign"></i>Login Again!!</a>
+						<a href="php/logout.php" class="button button-xlarge button-circle button-blue"><i class="icon-warning-sign"></i>Login Again!!</a>
 
 					</div>
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require("php/connect.php");
+require("connect.php");
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }

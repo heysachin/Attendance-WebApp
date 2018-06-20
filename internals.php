@@ -1,32 +1,37 @@
--<!DOCTYPE html>
+<?php
+    session_start();
+    if($_SESSION["role"]!="admin")
+    {
+        header("location:php/autologin.php");
+    }
+
+?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Upload Internals</title>
-
-
-<script>
+    <title>Update Profile</title>
+    <script>
 function stud_suggestion()
 {
-var book = document.getElementById("sub_select").value;
+var subject = document.getElementById("sub_select").value;
 var xhr;
  if (window.XMLHttpRequest) { // Mozilla, Safari, ...
     xhr = new XMLHttpRequest();
 } else if (window.ActiveXObject) { // IE 8 and older
     xhr = new ActiveXObject("Microsoft.XMLHTTP");
 }
-var data = "subject=" + book;
-     xhr.open("POST", "stud-suggestion.php", true); 
+var data = "subject=" + subject;
+     xhr.open("POST", "php/stud-suggestion.php", true); 
      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");                  
      xhr.send(data);
      xhr.onreadystatechange = display_data;
     function display_data() {
      if (xhr.readyState == 4) {
       if (xhr.status == 200) {
-       //alert(xhr.responseText);      
       document.getElementById("students").innerHTML = xhr.responseText;
       } else {
         alert('There was a problem with the request.');
@@ -35,21 +40,10 @@ var data = "subject=" + book;
     }
 }
 </script>
-
-
 </head>
 
 <body>
-    <?php
-//error_reporting(0);
-//ini_set('display_errors', 0);
-    session_start();
-    if($_SESSION["role"]!="admin")
-    {
-        header("location:php/autologin.php");
-    }
 
-?>
         <link rel="stylesheet" href="css/bootstrap.min.css">
 
         <script src="js/jquery.js"></script>
@@ -58,7 +52,7 @@ var data = "subject=" + book;
         <script src="js/bootstrap.js"></script>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
             <!-- Brand -->
-            <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo.png"> Internals System</a>
+            <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo1.png"> Internals System</a>
 
             <!-- Toggler/collapsibe Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -69,19 +63,27 @@ var data = "subject=" + book;
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a href=attendance.php class="nav-link active">New Attendance</a>
+                        <a href=attendance.php class="nav-link ">New Attendance</a>
                     </li>
                     <li class="nav-item">
                         <a href=internals.php class="nav-link active">Add Internals</a>
                     </li>
+                    <li class="nav-item">
+                        <a href=report.php class="nav-link ">View Report</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href=profile.php class="nav-link ">Profile</a>
+                    </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="logout1.php">Logout</a>
+                        <a class="nav-link" href="php/logout1.php">Logout</a>
                     </li>
 
                 </ul>
             </div>
         </nav>
-
+        <br>    
+        <br>    
+        <br>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
                 <h3 class="display-4">New Internal Marks</h3>
@@ -112,7 +114,7 @@ var data = "subject=" + book;
                                 </div>
                             </div>
                         </div>
-                        <form onsubmit=" event.preventDefault(); validate();" id="data_form" action="internalupload.php" method="post">
+                        <form onsubmit=" event.preventDefault(); validate();" id="data_form" action="php/internalupload.php" method="post">
 
                               <?php
                               echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>";
@@ -123,15 +125,15 @@ var data = "subject=" + book;
                                 <div class="form-group">
                                 <select class="form-control" id="internal_select" name="internal_select">
 
-                                    <option value="01">1st Internal</option>
-                                    <option value="02">2nd Internal</option>
-                                    <option value="03">3rd Internal</option>
-                                    <option value="04">Retest</option>
+                                    <option value="First">1st Internal</option>
+                                    <option value="Second">2nd Internal</option>
+                                    <option value="Third">3rd Internal</option>
+                                    <option value="Retest">Retest</option>
                                 </select>
                                 <br/>
                                 <b>Select the Subject</b><br>
 <?php
-require("connect.php");
+require("php/connect.php");
 
 // Check connection
 if ($conn->connect_error) {
@@ -156,19 +158,12 @@ while ($row = mysqli_fetch_array($sql2)){
 echo "<option value='".$row['Sid']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
 }
 echo "</select>";
-echo "<br><p>Date:
-                                    <input type='text' id='datepicker' name='date' required>
-                                </p>
-";
 ?>
                 
                 <div id="students"></div>
                                         
                                         <br/>
                                         <br/>
-
-                                        <input type="submit" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-primary" />
-                                        <!--input type="button" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-default" /-->
 
                             </div>
                         </form>
@@ -228,15 +223,6 @@ echo "<br><p>Date:
         //alert("hii");
         document.getElementById("data_form").submit(); // Form submission
     }
-</script>
-<script>
-    $(function() {
-        var date = $('#datepicker').datepicker({
-            dateFormat: 'dd-mm-yy'
-        }).val();
-        $("#datepicker").datepicker();
-
-    });
 </script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
