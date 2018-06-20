@@ -18,15 +18,16 @@
 <script>
 function stud_suggestion()
 {
-var subject = document.getElementById("sub_select").value;
+var sem = document.getElementById("sem_select").value;
+var dept = document.getElementById("dept_select").value;
 var xhr;
  if (window.XMLHttpRequest) { // Mozilla, Safari, ...
     xhr = new XMLHttpRequest();
 } else if (window.ActiveXObject) { // IE 8 and older
     xhr = new ActiveXObject("Microsoft.XMLHTTP");
 }
-var data = "subject=" + subject;
-     xhr.open("POST", "php/stud-report.php", true); 
+var data = "sem=" + sem +"&dept="+dept;
+     xhr.open("POST", "php/stud-list.php", true); 
      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");                  
      xhr.send(data);
      xhr.onreadystatechange = display_data;
@@ -70,10 +71,10 @@ var data = "subject=" + subject;
                         <a href=internals.php class="nav-link ">Add Internals</a>
                     </li>
                     <li class="nav-item">
-                        <a href=studentsList.php class="nav-link">View Students List</a>
+                        <a href=studentsList.php class="nav-link active">View Students List</a>
                     </li>
                     <li class="nav-item">
-                        <a href=report.php class="nav-link active">View Report</a>
+                        <a href=report.php class="nav-link">View Report</a>
                     </li>
                     <li class="nav-item">
                         <a href=profile.php class="nav-link ">Profile</a>
@@ -90,8 +91,8 @@ var data = "subject=" + subject;
         <br>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h3 class="display-4">View The Complete Report</h3>
-                <p class="lead">Please Select The Class And Subject to View the Attendance</p>
+                <h3 class="display-4">View The Complete Student List</h3>
+                <p class="lead">Please Select The Semester and The Class</p>
             </div>
         </div>
         <div class="row">
@@ -99,57 +100,27 @@ var data = "subject=" + subject;
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-
-                        <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        Confirm Submit
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure to submit the following details?
-                                        <div id="modal_content">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button onclick="senddata();" id="submit" class="btn btn-success success">Upload</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <form onsubmit=" event.preventDefault(); validate();" id="data_form" action="php/internalupload.php" method="post">
-
-                              <?php
-                              echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>";
-
-                               ?>
+                        <form id="data_form" action="studentsList.php" method="post">
+                            Sem : <select class='form-control' name = 'Sem' id="sem_select" onchange="stud_suggestion()">
+                                                <option value = '01'>S1</option>
+                                                <option value = '02'>S2</option>
+                                                <option value = '03'>S3</option>
+                                                <option value = '04'>S4</option>
+                                                <option value = '05'>S5</option>
+                                                <option value = '06'>S6</option>
+                                                <option value = '07'>S7</option>
+                                                <option value = '08'>S8</option>
+                                            </select><br>
+                            Department : 
+                                <select class='form-control' id="dept_select" name = 'Dept' onchange="stud_suggestion()">
+                                                <option value = '1'>Computer Science & Engineering</option>
+                                                <option value = '2'>Civil Engineering</option>
+                                                <option value = '3'>Electronics & Communications</option>
+                                                <option value = '4'>Electrical & Electronics</option>
+                                                <option value = '5'>Instrumentation & Communication</option>
+                                                <option value = '6'>Mechanical Engineering</option>
+                                            </select><br>
                                 
-                                <b>Select the Subject</b><br>
-<?php
-require("php/connect.php");
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-else
-{
-//echo "connected";
-}
-echo "<select class='form-control' name='subject' id='sub_select' onchange='stud_suggestion()' required>
-
-<option>Select a Subject</option>";
-$SID=$_SESSION['id'];
-$_POST['SID']=$SID;
-echo $_POST['SID'];
-$sql2 = mysqli_query($conn, "SELECT * From subjects WHERE Tid = '$SID'");
-$row = mysqli_num_rows($sql2);
-
-while ($row = mysqli_fetch_array($sql2)){
-echo "<option value='".$row['Sid']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
-}
-echo "</select>";
-?>
                 
                 <div id="students"></div>
                             </div>

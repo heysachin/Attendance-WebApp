@@ -70,6 +70,9 @@ var data = "subject=" + subject;
                         <a href=internals.php class="nav-link">Add Internals</a>
                     </li>
                     <li class="nav-item">
+                        <a href=studentsList.php class="nav-link">View Students List</a>
+                    </li>                   
+                    <li class="nav-item">
                         <a href=report.php class="nav-link ">View Report</a>
                     </li>
                     <li class="nav-item">
@@ -159,7 +162,7 @@ var data = "subject=" + subject;
                             if (mysqli_num_rows($sql)>0)
                                 {
                                     while ($row = mysqli_fetch_array($sql)){
-                                        echo "<tr><th>$row[Sid] <a href='php/remove_subject.php?sub_id=$row[Sid]&Tid=$Tid&dept=$row[Dept]'>(Remove)</a></th> <th>$row[Sname]</th> <th>$row[Credits]</th> <th>$row[Sem]</th>";
+                                        echo "<tr><th>$row[Sid] <a href='php/remove_subject.php?sub_id=$row[Sid]&dept=$row[Dept]'>(Remove)</a></th> <th>$row[Sname]</th> <th>$row[Credits]</th> <th>$row[Sem]</th>";
                                         $sql1= mysqli_query($conn,"SELECT * from department where `Did` = '$row[Dept]'");
                                         $row1 = mysqli_fetch_array($sql1);
                                         echo "<th>$row1[DName]</th>";

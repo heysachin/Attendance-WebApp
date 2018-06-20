@@ -70,6 +70,9 @@ var data = "subject=" + subject;
                         <a href=internals.php class="nav-link">Add Internals</a>
                     </li>
                     <li class="nav-item">
+                        <a href=studentsList.php class="nav-link">View Students List</a>
+                    </li>                    
+                    <li class="nav-item">
                         <a href=report.php class="nav-link ">View Report</a>
                     </li>
                     <li class="nav-item">
@@ -121,39 +124,7 @@ var data = "subject=" + subject;
                             
 
                                         <button class='button button-3d button-black nomargin' id='edit-profile-form-submit' name='edit-profile-form-submit' value='Submit'>Submit</button>
-                                </form>
-                                                ";
-
-                            echo "<br><br>Name : $row[Fname] $row[Lname]<br><br>Email: $row[Email]<br><br>Position: $row[Position]";
-                            $sql= mysqli_query($conn,"SELECT * from department where `Did` = '$row[Dept]'");
-                            $row = mysqli_fetch_array($sql);
-                            echo "<br><br>Department : $row[DName] </h5><a href='profilechange.php?Tid=$Tid'>Edit Profile</a>";
-                            $sql= mysqli_query($conn,"SELECT * from subjects where `Tid` = '$Tid'");
-                            echo "<br><br><h3>Subjects</h3><table style='width:100%' class='table'>
-                                    <thead class='thead-dark'>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Credit</th>
-                                            <th>Semester</th>
-                                            <th>Department</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>";
-                            if (mysqli_num_rows($sql)>0)
-                                {
-                                    while ($row = mysqli_fetch_array($sql)){
-                                        echo "<tr><th>$row[Sid] </th> <th>$row[Sname]</th> <th>$row[Credits]</th> <th>$row[Sem]</th>";
-                                        $sql1= mysqli_query($conn,"SELECT * from department where `Did` = '$row[Dept]'");
-                                        $row1 = mysqli_fetch_array($sql1);
-                                        echo "<th>$row1[DName]</th>";
-                                    }
-                                }
-                                echo "</tbody></table>";
-
-
-
-
+                                </form>";
                                ?>
                                 
                            

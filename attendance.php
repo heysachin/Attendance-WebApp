@@ -72,6 +72,9 @@ var data = "subject=" + book;
                         <a href=internals.php class="nav-link ">Add Internals</a>
                     </li>
                     <li class="nav-item">
+                        <a href=studentsList.php class="nav-link">View Students List</a>
+                    </li>
+                    <li class="nav-item">
                         <a href=report.php class="nav-link">View Report</a>
                     </li>
                     <li class="nav-item">
