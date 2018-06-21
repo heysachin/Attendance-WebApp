@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Upload Internals</title>
+    <title>Edit Subjects</title>
 
 <script>
 function stud_suggestion()
@@ -90,8 +90,8 @@ var data = "subject=" + subject;
         <br>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h3 class="display-4">Profile</h3>
-                <p class="lead">View and Edit Your Profile Details Here</p>
+                <h3 class="display-4">Edit Subjects</h3>
+                <p class="lead">View and Edit Your Subject Details Here</p>
             </div>
         </div>
         <div class="row">
@@ -100,87 +100,87 @@ var data = "subject=" + subject;
 
                 <div class="card">
                     <div class="card-body">
-
-                            <?php
-                            $Tid=$_SESSION['id'];
-                            require("php/connect.php");
-                            echo "<br/><h5>Username : $Tid";
-                            ?>
-                            <br><br>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3>Add a Subject</h3>
-                                    <form role="form" action="php/addSubject.php" method="post" class="login-form"><br>
-                                        Subject Code : <input type="text" name="Sid" placeholder="Eg: CS302"><br>
-                                        Subject Name : <input type="text" name="Sname" placeholder="Eg: Basics of Electronics Engineering"><br>
-                                        Credits : <select class='form-control' name = 'Credit'>
-                                                <option value = '01'>1</option>
-                                                <option value = '02'>2</option>
-                                                <option value = '03'>3</option>
-                                                <option value = '04'>4</option>
-                                                <option value = '05'>5</option>
-                                                <option value = '06'>6</option>
-                                                <option value = '07'>7</option>
-                                                <option value = '08'>8</option>
-                                            </select><br>
-                                        Sem : <select class='form-control' name = 'Sem'>
-                                                <option value = '01'>S1</option>
-                                                <option value = '02'>S2</option>
-                                                <option value = '03'>S3</option>
-                                                <option value = '04'>S4</option>
-                                                <option value = '05'>S5</option>
-                                                <option value = '06'>S6</option>
-                                                <option value = '07'>S7</option>
-                                                <option value = '08'>S8</option>
-                                            </select><br>
-                                        Department : 
-                                            <select class='form-control' name = 'Dept'>
-                                                <option value = '01'>Computer Science & Engineering</option>
-                                                <option value = '02'>Civil Engineering</option>
-                                                <option value = '03'>Electronics & Communications</option>
-                                                <option value = '04'>Electrical & Electronics</option>
-                                                <option value = '05'>Instrumentation & Communication</option>
-                                                <option value = '06'>Mechanical Engineering</option>
-                                            </select><br>
-                                        <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Submit</button>
-                                    </form>
-                                </div>
+                        <nav aria-label="breadcrumb">
+                          <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="profile.php">Profile</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Subjects</li>
+                          </ol>
+                        </nav>
+                        <br>
+                        <div class="card">
+                            <div class="card-body">
+                                <h3>Add a Subject</h3>
+                                <h5>
+                                <form role="form" action="php/addSubject.php" method="post" class="login-form"><br>
+                                    Subject Code <font color='red'>*</font>: <input type="text" class="form-control" name="Sid" placeholder="Eg: CS302" required><br>
+                                    Subject Name <font color='red'>*</font>: <input type="text" class="form-control" name="Sname" placeholder="Eg: Basics of Electronics Engineering" required><br>
+                                    Credits <font color='red'>*</font>: <select class='form-control' name = 'Credit'>
+                                            <option value = '01'>1</option>
+                                            <option value = '02'>2</option>
+                                            <option value = '03'>3</option>
+                                            <option value = '04'>4</option>
+                                            <option value = '05'>5</option>
+                                            <option value = '06'>6</option>
+                                            <option value = '07'>7</option>
+                                            <option value = '08'>8</option>
+                                        </select><br>
+                                    Semester <font color='red'>*</font>: <select class='form-control' name = 'Sem'>
+                                            <option value = '01'>S1</option>
+                                            <option value = '02'>S2</option>
+                                            <option value = '03'>S3</option>
+                                            <option value = '04'>S4</option>
+                                            <option value = '05'>S5</option>
+                                            <option value = '06'>S6</option>
+                                            <option value = '07'>S7</option>
+                                            <option value = '08'>S8</option>
+                                        </select><br>
+                                    Department <font color='red'>*</font>: 
+                                        <select class='form-control' name = 'Dept'>
+                                            <option value = '01'>Computer Science & Engineering</option>
+                                            <option value = '02'>Civil Engineering</option>
+                                            <option value = '03'>Electronics & Communications</option>
+                                            <option value = '04'>Electrical & Electronics</option>
+                                            <option value = '05'>Instrumentation & Communication</option>
+                                            <option value = '06'>Mechanical Engineering</option>
+                                        </select><br>
+                                    <button class="btn btn-primary btn-lg btn-block" id="login-form-submit" name="login-form-submit" value="login">Submit</button>
+                                </form>
+                            </h5>
                             </div>
-                            <?php
-                            $sql= mysqli_query($conn,"SELECT * from subjects where `Tid` = '$Tid'");
-                            echo "<br><br><h3>Subjects</h3><table style='width:100%' class='table'>
-                                    <thead class='thead-dark'>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Credit</th>
-                                            <th>Semester</th>
-                                            <th>Department</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>";
-                            if (mysqli_num_rows($sql)>0)
-                                {
-                                    while ($row = mysqli_fetch_array($sql)){
-                                        echo "<tr><th>$row[Sid] <a href='php/remove_subject.php?sub_id=$row[Sid]&dept=$row[Dept]'>(Remove)</a></th> <th>$row[Sname]</th> <th>$row[Credits]</th> <th>$row[Sem]</th>";
-                                        $sql1= mysqli_query($conn,"SELECT * from department where `Did` = '$row[Dept]'");
-                                        $row1 = mysqli_fetch_array($sql1);
-                                        echo "<th>$row1[DName]</th>";
-                                    }
+                        </div>
+                        <?php
+                        $Tid=$_SESSION['id'];
+                        require("php/connect.php");
+                        $sql= mysqli_query($conn,"SELECT * from subjects where `Tid` = '$Tid'");
+                        echo "<br><br><h3>Subjects</h3><table style='width:100%' class='table'>
+                                <thead class='thead-dark'>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Credit</th>
+                                        <th>Semester</th>
+                                        <th>Department</th>
+                                    </tr>
+                                </thead>
+                                <tbody>";
+                        if (mysqli_num_rows($sql)>0)
+                            {
+                                while ($row = mysqli_fetch_array($sql)){
+                                    echo "<tr><td>$row[Sid] <a href='php/remove_subject.php?sub_id=$row[SIndex]'>(Remove)</a></td> <td>$row[Sname]</td> <td>$row[Credits]</td> <td>$row[Sem]</td>";
+                                    $sql1= mysqli_query($conn,"SELECT * from department where `Did` = '$row[Dept]'");
+                                    $row1 = mysqli_fetch_array($sql1);
+                                    echo "<td>$row1[DName]</td>";
                                 }
-                                echo "</tbody></table>";
-
-
-
-
-                               ?>
-                                
-                           
-
-                            </div>
+                            }
+                            echo "</tbody></table>";
+                           ?>
+                           <div class="alert alert-danger" role="alert">
+  Removing the Subject will remove the attendance & internal marks records as well. This action is irreversible. Check the Attendance records <a href="report.php" class="alert-link">here</a>.
+</div>
                         </div>
                     </div>
                 </div>
+            </div>
 <br/>
 <br/>
 </body>

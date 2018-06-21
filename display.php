@@ -82,7 +82,7 @@ if ($conn->connect_error) {
 
 $SID = $_SESSION['id'];
 
-$sql = "select sb.Sid SubID, sb.Sname SubName from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and st.StudId LIKE '$SID'";
+$sql = "select sb.SIndex SubID, sb.Sid SID, sb.Sname SubName from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and st.StudId LIKE '$SID'";
 $result = $conn->query($sql);
 echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>
 <br/><h2>Attendance Report</h2>
@@ -93,9 +93,9 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
         
-        $SubID = $row["SubID"];
+        $SubID = $row["SID"];
         $SubName = $row["SubName"];
-        $sql1 = "Select sum(Total) TC , sum(Missed) MC from attendance where SubId = '$SubID' and StudId = '$SID' ";
+        $sql1 = "Select sum(Total) TC , sum(Missed) MC from attendance where SIndex = '$SubID' and StudId = '$SID' ";
         $result1 = $conn->query($sql1);
         if ($result1->num_rows > 0) {
             // output data of each row
@@ -134,17 +134,22 @@ $conn->close();
                         <br/>
                         <div class="card">
                             <div class="card-body">
-                                <table style="width:100%" class='table'>
-                                    <thead class='thead-dark'>
-                                        <tr>
-                                            <th>Subject</th>
-                                            <th>Internal Number</th>
-                                            <th>Marks</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
+<h2>Internal Marks</h2>
+<table style='width:100%' class='table'>
+    <thead class='thead-dark'>
+        <tr>
+            <th>Name</th>
+            <th>1st</th>
+            <th>2nd</th>
+            <th>3rd</th>
+            <th>Retest</th>
+            <th>Top 2</th>
+        </tr>
+    </thead>
+    <tbody>
 <?php
+
+
 require("php/connect.php");
 
 // Check connection
@@ -154,7 +159,7 @@ if ($conn->connect_error) {
 
 $SID = $_SESSION['id'];
 
-$sql = "select sb.Sid SubID, sb.Sname SubName from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and st.StudId LIKE '$SID'";
+$sql = "select sb.SIndex SubID, sb.Sname SubName from student st,subjects sb where st.Sem=sb.Sem and st.Dept=sb.Dept and st.StudId LIKE '$SID'";
 $result = $conn->query($sql);
 echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>
 <br/><h2>Internal Marks Report</h2>
@@ -164,16 +169,27 @@ echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["na
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
+
+
         
         $SubID = $row["SubID"];
         $SubName = $row["SubName"];
-        $sql1 = "Select InternalNo,Marks from internals where SubId = '$SubID' and StudId = '$SID' ";
+        $sql1 = "SELECT * from internals where SIndex = $SubID and StudId = '$SID' ";
         $result1 = $conn->query($sql1);
         if ($result1->num_rows > 0) {
             // output data of each row
             while($row1 = $result1->fetch_assoc()) {
+                $sql2 = mysqli_query($conn, "SELECT * from subjects where SIndex= $SubID");
+                $row2 = mysqli_fetch_array($sql2);
+                $mark[0]= intval($row1["First"]);
+                $mark[1]= intval($row1["Second"]);
+                $mark[2]= intval($row1["Third"]);
+                $mark[3]= intval($row1["Retest"]);
+                echo "<tr><td>" .$row2['Sname']. "</td><td>" . $mark[0]. "</td> <td>" . $mark[1]. "</td><td>" . $mark[2]. "</td><td>" . $mark[3]. "</td>";
+                sort($mark);
+                $top2=$mark[2]+$mark[3];
 
-        echo "<tr><td>" .$SubID." - ".$SubName. "</td> <td>" . $row1["InternalNo"]. "</td> <td>" . $row1["Marks"]. "</td></tr><br>" ;
+                echo " <td>" . $top2. "</td></tr>" ;
             }
         }
     }

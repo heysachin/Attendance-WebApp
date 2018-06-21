@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Report</title>
+    <title>Edit Attendance</title>
 
 <script>
 function stud_suggestion()
@@ -26,7 +26,7 @@ var xhr;
     xhr = new ActiveXObject("Microsoft.XMLHTTP");
 }
 var data = "subject=" + subject;
-     xhr.open("POST", "php/stud-report.php", true); 
+     xhr.open("POST", "php/stud-suggestion.php", true); 
      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");                  
      xhr.send(data);
      xhr.onreadystatechange = display_data;
@@ -67,16 +67,16 @@ var data = "subject=" + subject;
                         <a href=attendance.php class="nav-link ">New Attendance</a>
                     </li>
                     <li class="nav-item">
-                        <a href=internals.php class="nav-link ">Add Internals</a>
+                        <a href=internals.php class="nav-link">Add Internals</a>
                     </li>
                     <li class="nav-item">
                         <a href=studentsList.php class="nav-link">View Students List</a>
-                    </li>
+                    </li>                    
                     <li class="nav-item">
                         <a href=report.php class="nav-link active">View Report</a>
                     </li>
                     <li class="nav-item">
-                        <a href=profile.php class="nav-link ">Profile</a>
+                        <a href=profile.php class="nav-link">Profile</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="php/logout1.php">Logout</a>
@@ -90,8 +90,8 @@ var data = "subject=" + subject;
         <br>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h3 class="display-4">View The Complete Report</h3>
-                <p class="lead">Please Select The Subject to View the Attendance</p>
+                <h3 class="display-4">Edit Attendance</h3>
+                <p class="lead">Edit The Attendance Details Here</p>
             </div>
         </div>
         <div class="row">
@@ -99,68 +99,61 @@ var data = "subject=" + subject;
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="report.php">View Report</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Attendance</li>
+                      </ol>
+                    </nav>
+                            <?php
+                            require("php/connect.php");
+                            $Tid=$_SESSION['id'];
+                            $StudId=$_GET['StudId'];
+                            $SIndex=$_GET['SIndex'];
+                            $sql2 = mysqli_query($conn, "SELECT * From attendance WHERE StudId = '$StudId' and SIndex=$SIndex");
+                            echo "<table style='width:100%' class='table'>
+                                    <thead class='thead-dark'>
+                                        <th>Date</th>
+                                        <th>Missed</th>
+                                        <th>Total</th>
+                                        <th>Submit</th>
+                                    </thead>";
+                            while ($row2 = mysqli_fetch_array($sql2)) {
+                                
+                            echo "<form role='form' action='php/edit_attendance.php?StudId=$StudId&SIndex=$SIndex&Date=$row2[Date]' method='post' class='login-form'><br/>
+                            
+                            <tr>
+                                    <td><input class='form-control' type='text' disabled name='Date' value='$row2[Date]'></td>
+                                    <td>
+                                        <select class='form-control' name = 'Missed'>";
+                                for ($i=0; $i <=$row2['Total'] ; $i++) { 
+                                    if ($i==$row2['Missed']) {
+                                    echo "<option selected='selected' value='$i'>$i</option>";
+                                    }
+                                    else{
+                                    echo "<option value='$i'>$i</option>";
+                                    }
+                                }
 
-                        <div class="modal fade" id="confirm-submit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        Confirm Submit
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure to submit the following details?
-                                        <div id="modal_content">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                        <button onclick="senddata();" id="submit" class="btn btn-success success">Upload</button>
-                                    </div>
-                                </div>
+                            echo "</select>
+                                    <td><input class='form-control' type='text' disabled name='Total' value='$row2[Total]'></td>
+                                    <td><button type='submit' class='btn btn-danger'>Submit</button></a></td>
+                                    </form>
+                                </tr>";
+                            }
+                            echo "
+                            </table>
+                                </form>";
+                               ?></h5>
+                           
+
                             </div>
                         </div>
-                        <form onsubmit=" event.preventDefault(); validate();" id="data_form" action="php/internalupload.php" method="post">
-
-                        <?php
-                        echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>";
-                        ?>
-                          
-                        <b>Select the Subject</b><br>
-                        <?php
-                        require("php/connect.php");
-                        // Check connection
-                        if ($conn->connect_error) {
-                            die("Connection failed: " . $conn->connect_error);
-                        }
-                        else
-                        {
-                        //echo "connected";
-                        }
-                        echo "<select class='form-control' name='subject' id='sub_select' onchange='stud_suggestion()' required>
-
-                        <option>Select a Subject</option>";
-                        $SID=$_SESSION['id'];
-                        $_POST['SID']=$SID;
-                        echo $_POST['SID'];
-                        $sql2 = mysqli_query($conn, "SELECT * From subjects WHERE Tid = '$SID'");
-                        $row = mysqli_num_rows($sql2);
-
-                        while ($row = mysqli_fetch_array($sql2)){
-                        echo "<option value='".$row['SIndex']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
-                        }
-                        echo "</select>";
-                        ?>
-                        <div id="students"></div>
-                        </div>
-                        </form>
                     </div>
                 </div>
-            </div>
-        </div>
-        <br>
-        <br>
+<br/>
+<br/>
 </body>
-
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

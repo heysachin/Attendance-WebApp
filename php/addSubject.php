@@ -8,7 +8,7 @@
 	$Credit = $_POST['Credit'];
 	$Sem = $_POST['Sem'];
 	$Dept = $_POST['Dept'];
-	$sql="INSERT into subjects values('$Sid','$Sname',$Credit,'$Tid',$Sem,$Dept)";
+	$sql="INSERT into subjects (`Sid`, `Sname`, `Credits`, `Tid`, `Sem`, `Dept`) values('$Sid','$Sname',$Credit,'$Tid',$Sem,$Dept)";
       $conn->query($sql);
       echo mysqli_error($conn);
 header("location:../edit_subjects.php");

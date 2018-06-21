@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Update Profile</title>
+    <title>Add Internals</title>
     <script>
 function stud_suggestion()
 {
@@ -123,7 +123,7 @@ var data = "subject=" + subject;
                               echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>";
 
                                ?>
-                                <b>Select the Exam</b><br>
+                                <b>Select the Exam<font color='red'>*</font></b><br>
 
                                 <div class="form-group">
                                 <select class="form-control" id="internal_select" name="internal_select">
@@ -134,7 +134,7 @@ var data = "subject=" + subject;
                                     <option value="Retest">Retest</option>
                                 </select>
                                 <br/>
-                                <b>Select the Subject</b><br>
+                                <b>Select the Subject<font color='red'>*</font></b><br>
 <?php
 require("php/connect.php");
 
@@ -158,7 +158,7 @@ $sql2 = mysqli_query($conn, "SELECT * From subjects WHERE Tid = '$SID'");
 $row = mysqli_num_rows($sql2);
 
 while ($row = mysqli_fetch_array($sql2)){
-echo "<option value='".$row['Sid']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
+echo "<option value='".$row['SIndex']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
 }
 echo "</select>";
 ?>

@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Student List</title>
+    <title>Add a Student</title>
 
 <script>
 function stud_suggestion()
@@ -91,8 +91,8 @@ var data = "sem=" + sem +"&dept="+dept;
         <br>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h3 class="display-4">View The Complete Student List</h3>
-                <p class="lead">Please Select The Semester and The Class</p>
+                <h3 class="display-4">Add a Student</h3>
+                <p class="lead">Please fill in the form and submit to add a student</p>
             </div>
         </div>
         <div class="row">
@@ -100,31 +100,42 @@ var data = "sem=" + sem +"&dept="+dept;
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-                    <a href="add_student.php"><button class="btn btn-lg btn-success" id="login-form-submit" name="login-form-submit" value="add">Add Student</button></a>
-                    <a href="upload_student.php"><button class="btn btn-success btn-lg float-right" id="login-form-submit" name="login-form-submit" value="file">Upload Student Database</button></a>
-                        <form id="data_form" action="studentsList.php" method="post"><h5><br>
-                            Sem : <select class='form-control' name = 'Sem' id="sem_select" onchange="stud_suggestion()">
-                                                <option value = '01'>S1</option>
-                                                <option value = '02'>S2</option>
-                                                <option value = '03'>S3</option>
-                                                <option value = '04'>S4</option>
-                                                <option value = '05'>S5</option>
-                                                <option value = '06'>S6</option>
-                                                <option value = '07'>S7</option>
-                                                <option value = '08'>S8</option>
-                                            </select><br>
-                            Department : 
-                                <select class='form-control' id="dept_select" name = 'Dept' onchange="stud_suggestion()">
-                                                <option value = '1'>Computer Science & Engineering</option>
-                                                <option value = '2'>Civil Engineering</option>
-                                                <option value = '3'>Electronics & Communications</option>
-                                                <option value = '4'>Electrical & Electronics</option>
-                                                <option value = '5'>Instrumentation & Communication</option>
-                                                <option value = '6'>Mechanical Engineering</option>
-                                            </select><br></h5>
-                                
-                
-                <div id="students"></div>
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="studentsList.php">View Students List</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Add Student</li>
+                      </ol>
+                    </nav>
+                    <form role="form" action="php/add_student.php" method="post" class="login-form">
+                    <h5>
+                        <br>First name <font color='red'>*</font> : <input  class="form-control" type="text" name="Fname" required="">
+                        <br>Last name <font color='red'>*</font> : <input  class="form-control" type="text" name="Lname" required="">
+                        <br>Student ID <font color='red'>*</font> : <input class="form-control"  type="text" name="StudId" required="">
+                        <br>Semester <font color='red'>*</font> : <select class='form-control' name = 'Sem'>
+                                                    <option value = '01'>S1</option>
+                                                    <option value = '02'>S2</option>
+                                                    <option value = '03'>S3</option>
+                                                    <option value = '04'>S4</option>
+                                                    <option value = '05'>S5</option>
+                                                    <option value = '06'>S6</option>
+                                                    <option value = '07'>S7</option>
+                                                    <option value = '08'>S8</option>
+                                                </select>
+                        <br>Department <font color='red'>*</font> : <select class='form-control' name = 'Dept'>
+                                                    <option value = '01'>Computer Science & Engineering</option>
+                                                    <option value = '02'>Civil Engineering</option>
+                                                    <option value = '03'>Electronics & Communications</option>
+                                                    <option value = '04'>Electrical & Electronics</option>
+                                                    <option value = '05'>Instrumentation & Communication</option>
+                                                    <option value = '06'>Mechanical Engineering</option>
+                                                </select>
+                        <br>Address : <input class="form-control" type="text" name="Address">
+                        <br>Email : <input class="form-control" type="text" name="Email">
+                        <br>Phone : <input class="form-control" type="text" name="Phone">
+                        <br>Password <font color='red'>*</font> : <input class="form-control" type="Password" name="Password" required="">
+                    </h5><br>
+                    <button class="btn btn-success btn-lg btn-block" id="login-form-submit" name="login-form-submit" value="login">Add Student</button>
+
                             </div>
                         </form>
 </body>

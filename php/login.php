@@ -1,14 +1,9 @@
 <?php
-
 	if(!isset($_POST["password"] ) && !isset($_POST["email"]))
 	{
 		header("location:../admin.php");
 	}
-
-
 	require("connect.php");
-
-
 	$user=$_POST["email"];
 	$pass=$_POST["password"];
 	$sql="SELECT * FROM student WHERE StudId='$user' AND Password='$pass'";
@@ -22,18 +17,11 @@
 		$_SESSION['name']=$row['Fname'].' '.$row['Lname'];
 		$_SESSION['id']=$row['StudId'];
 		$_SESSION['role']="student";
-
 		header('Location:../display.php');
-
-
-
 	}
 	else
 	{
 		header('Location:../PasswordIncorrect.php');
 
 	}
-
-
-
 	?>

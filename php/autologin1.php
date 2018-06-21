@@ -1,11 +1,9 @@
 <?php
 	session_start();
-
-	if($_SESSION["role"]=="student")
+	if($_SESSION["role"]=="admin")
 	{
-		header("location:../billing.php");
+		header("location:../attendance.php");
 	}
-
 		else
 		{
 		header("location:../SessionAdmin.php");

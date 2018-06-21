@@ -1,14 +1,9 @@
 <?php
-
 	if(!isset($_POST["password"] ) && !isset($_POST["email"]))
 	{
 		header("location:../admin.php");
 	}
-
-
 	require("connect.php");
-
-
 	$user=$_POST["email"];
 	$pass=$_POST["password"];
 	$sql="SELECT * FROM teacher WHERE Tid='$user' AND Password='$pass'";
@@ -24,16 +19,10 @@
 		$_SESSION['role']="admin";
 
 		header('Location:../attendance.php');
-
-
-
 	}
 	else
 	{
 		header('Location:../PassAdminWrong.php');
 
 	}
-
-
-
 	?>

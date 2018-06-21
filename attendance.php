@@ -12,20 +12,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Upload Attendance</title>
+    <title>Add Attendance</title>
 
 
     <script>
 function stud_suggestion()
 {
-var book = document.getElementById("sub_select").value;
+var SIndex = document.getElementById("sub_select").value;
 var xhr;
  if (window.XMLHttpRequest) { // Mozilla, Safari, ...
     xhr = new XMLHttpRequest();
 } else if (window.ActiveXObject) { // IE 8 and older
     xhr = new ActiveXObject("Microsoft.XMLHTTP");
 }
-var data = "subject=" + book;
+var data = "subject=" + SIndex;
      xhr.open("POST", "php/std-att-suggest.php", true); 
      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");                  
      xhr.send(data);
@@ -55,7 +55,7 @@ var data = "subject=" + book;
         <script src="js/bootstrap.js"></script>
         <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
             <!-- Brand -->
-            <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo1.png"> Attendance System</a>
+            <a class="navbar-brand" href="#"><img style="height: 75px" src="images/logo1.png"> Internals System</a>
 
             <!-- Toggler/collapsibe Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -123,73 +123,41 @@ var data = "subject=" + book;
                         <form onsubmit=" event.preventDefault(); validate();" id="data_form" action="php/ctable.php" method="post">
                             <div class='form-group'>
                               <?php
-                              echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>";
+                                echo "<br/><div class='alert alert-secondary' role='alert'>Name: ".$_SESSION["name"]."</div>";
+                                $date1 = date("d-m-Y", time());
 
-                               ?>
-                                <p>Date:
-                                    <input type="text" id="datepicker" name="date" required>
-                                </p>
-                                <b>Select the Subject</b>
-<?php
-require("php/connect.php");
+                                echo "<p><b>Date<font color='red'>*</font> </b> <input type='text' id='datepicker' name='date' class='form-control' value = $date1 required></p>";
+                                ?>
+                                <b>Select the Subject<font color='red'>*</font></b>
+                                <?php
+                                require("php/connect.php");
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-else
-{
-//echo "connected";
+                                // Check connection
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+                                else
+                                {
+                                //echo "connected";
 
-}
+                                }
 
-echo "<select class='form-control' name='subject' id='sub_select' onchange='stud_suggestion()' required>
+                                echo "<select class='form-control' name='subject' id='sub_select' onchange='stud_suggestion()' required>
 
-    <option>Select a Subject</option>";
-console.log("qwertyuio");
-$SID=$_SESSION['id'];
-$_POST['SID']=$SID;
-echo $_POST['SID'];
-$sql2 = mysqli_query($conn, "SELECT * From subjects WHERE Tid = '$SID'");
-$row = mysqli_num_rows($sql2);
+                                    <option>Select a Subject</option>";
+                                $SID=$_SESSION['id'];
+                                $sql2 = mysqli_query($conn, "SELECT * From subjects WHERE Tid = '$SID'");
+                                $row = mysqli_num_rows($sql2);
 
-while ($row = mysqli_fetch_array($sql2)){
-echo "<option value='".$row['Sid']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
- }
-// echo "</select>";
+                                while ($row = mysqli_fetch_array($sql2)){
+                                echo "<option value='".$row['SIndex']."'>\t".$row['Sid']." - ".$row['Sname']."</option>" ;
+                                 }
 
-// echo "<br>
-// <br>
-// <b>Select the Student Absentees</b>";
-
-// echo "
-// <select multiple='multiple' name='StudId[]'' id='StudId' required>";
-
-
-// $sql3 = mysqli_query($conn, "SELECT * From student");
-// $row = mysqli_num_rows($sql3);
-
-// while ($row = mysqli_fetch_array($sql3)){
-// echo "<option value='".$row['StudId']."'>\t".$row['StudId']." - ".$row['Fname']." ".$row['Lname']."</option>" ;
-// }
-// echo "</select>";
-// echo "<script>
-//                                     $('select').multipleSelect({
-
-//                                         filter: true,
-//                                         width: '100%'
-//                                     });
-//                                 </script>";
-
-?>
-</select>
- <div id="students"></div>
-                                        <br/>
-                                        <br/>
-
-                                        <input type="submit" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-primary" />
-                                        <!--input type="button" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-default" /-->
-
+                                ?>
+                                </select>
+                                 <div id="students"></div>
+                                <br/>
+                                <input type="submit" name="btn" value="Submit" id="submitBtn" data-toggle="modal" data-target="#confirm-submit" class="btn btn-primary btn-lg btn-block" />
                             </div>
                         </form>
 </body>
@@ -231,14 +199,7 @@ echo "<option value='".$row['Sid']."'>\t".$row['Sid']." - ".$row['Sname']."</opt
         }
         html2 += "</table>";
         document.getElementById("modal_content").innerHTML = html2;
-        //$('#confirm-submit').modal('show');
         $("#submitBtn").click()
-
-        //document.getElementById("modal_content").innerHTML=
-        //return false;
-        //return confirm('Selected item is '+strUser+'     Selected roll numbers are '+searchIDs+'. Submit the bill?');
-
-        //return confirm('Do you really want to submit the form?');
 
     }
 

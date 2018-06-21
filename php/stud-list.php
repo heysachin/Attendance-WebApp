@@ -8,6 +8,7 @@ $result = $conn->query($sql);
 
 if (mysqli_num_rows($result)!=0){
 echo "
+
 <table style='width:100%' class='table'>
     <thead class='thead-dark'>
         <tr>
@@ -28,8 +29,7 @@ while($row=$result->fetch_assoc())
                 <td>$row[Email]</td>
                 <td>$row[Phone]</td>
                 <td>$row[Address]</td>
-            </tr>
-        <br>" ;
+            </tr>" ;
 
 }
   echo "</tbody></table>";

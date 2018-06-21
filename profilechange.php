@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Upload Internals</title>
+    <title>Edit Profile</title>
 
 <script>
 function stud_suggestion()
@@ -99,18 +99,23 @@ var data = "subject=" + subject;
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-body">
-
+                    <nav aria-label="breadcrumb">
+                      <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="profile.php">Profile</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+                      </ol>
+                    </nav>
                             <?php
                             $Tid=$_SESSION['id'];
                             require("php/connect.php");
                             $sql= mysqli_query($conn,"SELECT * from teacher where `Tid` = '$Tid'");
                             $row = mysqli_fetch_array($sql);
-                            echo "<form role='form' action='php/edit_profile.php' method='post' class='login-form'><br/><h5>Username : <input type='text' id='username' name = 'username' value='$row[Tid]'>";
-                            echo "<br/>Fname : <input type='text' id='Fname' name = 'Fname' value='$row[Fname]'>";
-                            echo "<br/>Lname : <input type='text' id='Lname' name = 'Lname' value='$row[Lname]'>";
-                            echo "<br/>Email : <input type='text' id='Email' name = 'Email' value='$row[Email]'>";
-                            echo "<br/>Position : <input type='text' id='Position' name = 'Position' value='$row[Position]'>";
-                            echo "<br/><h5>Department : 
+                            echo "<form role='form' action='php/edit_profile.php' method='post' class='login-form'><br/><h5>Username <font color='red'>*</font> : <input type='text' class='form-control' id='username' name = 'username' value='$row[Tid]'required>";
+                            echo "<br/>First name <font color='red'>*</font> : <input type='text' id='Fname' class='form-control' name = 'Fname' value='$row[Fname]'required>";
+                            echo "<br/>Last name <font color='red'>*</font> : <input type='text' id='Lname' class='form-control' name = 'Lname' value='$row[Lname]'required>";
+                            echo "<br/>Email : <input type='text' id='Email' class='form-control' name = 'Email' value='$row[Email]'>";
+                            echo "<br/>Position : <input type='text' id='Position' class='form-control' name = 'Position' value='$row[Position]'>";
+                            echo "<br/><h5>Department <font color='red'>*</font> : 
                                             <select class='form-control' name = 'dept'>
                                                 <option value = '01'>Computer Science & Engineering</option>
                                                 <option value = '02'>Civil Engineering</option>
@@ -119,14 +124,16 @@ var data = "subject=" + subject;
                                                 <option value = '05'>Instrumentation & Communication</option>
                                                 <option value = '06'>Mechanical Engineering</option>
                                             </select>";
-                            echo "<br/>Current Password : <input type='text' id='Current_Pass' name = 'old_pass'>";
-                            echo "<br/>New Password : <input type='text' id='New_Pass' name = 'new_pass' placeholder='Leave blank if wanted unchanged'><br>
+                            echo "<br/>Current Password <font color='red'>*</font> : <input type='text' id='Current_Pass' class='form-control' name = 'old_pass'required>";
+                            echo "<br/>New Password : <input type='text' id='New_Pass' class='form-control' name = 'new_pass' placeholder='Leave blank if want unchanged'><br>
                             
 
-                                        <button class='button button-3d button-black nomargin' id='edit-profile-form-submit' name='edit-profile-form-submit' value='Submit'>Submit</button>
+                                        <button class='btn btn-success btn-lg btn-block' id='edit-profile-form-submit' name='edit-profile-form-submit' value='Submit'>Submit</button>
                                 </form>";
-                               ?>
-                                
+                               ?></h5><br>
+                                <div class="alert alert-danger" role="alert">
+                                    You'll be Logged Out! Please login with your new credentials
+                                </div>
                            
 
                             </div>

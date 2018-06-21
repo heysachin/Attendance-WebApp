@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <meta charset="UTF-8">
-    <title>Upload Internals</title>
+    <title>Profile</title>
 
 <script>
 function stud_suggestion()
@@ -103,16 +103,25 @@ var data = "subject=" + subject;
                             <?php
                             $Tid=$_SESSION['id'];
                             require("php/connect.php");
-                            echo "<br/><h5>Username : $Tid";
+
+                            echo "<h3>Profile
+                            <a href='profilechange.php'>
+                            <button class='btn btn-danger float-right' name='login-form-submit'>Edit Profile</button>
+                            </a>
+                            </h3><br>
+                            <h5>Username : $Tid";
                             $sql= mysqli_query($conn,"SELECT * from teacher where `Tid` = '$Tid'");
                             $row = mysqli_fetch_array($sql);
                             // print_r($row);
                             echo "<br><br>Name : $row[Fname] $row[Lname]<br><br>Email: $row[Email]<br><br>Position: $row[Position]";
                             $sql= mysqli_query($conn,"SELECT * from department where `Did` = '$row[Dept]'");
                             $row = mysqli_fetch_array($sql);
-                            echo "<br><br>Department : $row[DName] </h5><a href='profilechange.php'>Edit Profile</a>";
+                    
+                            echo "<br><br>Department : $row[DName] </h5>";
                             $sql= mysqli_query($conn,"SELECT * from subjects where `Tid` = '$Tid'");
-                            echo "<br><br><h3>Subjects</h3><a href='edit_subjects.php'>Edit Subjects</a><table style='width:100%' class='table'>
+                            echo "<br><br><h3>Subjects
+                            <a href='edit_subjects.php'><button class='btn btn-info float-right' name='login-form-submit'>Edit Subjects</button></a></h3><br>
+                            <table style='width:100%' class='table'>
                                     <thead class='thead-dark'>
                                         <tr>
                                             <th>ID</th>
