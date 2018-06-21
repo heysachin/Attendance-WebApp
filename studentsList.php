@@ -2,7 +2,7 @@
     session_start();
     if($_SESSION["role"]!="admin")
     {
-        header("location:php/autologin.php");
+        header("location:php/autologin1.php");
     }
 
 ?>
