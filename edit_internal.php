@@ -102,7 +102,7 @@ var data = "subject=" + subject;
                     <nav aria-label="breadcrumb">
                       <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="report.php">View Report</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Attendance</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Internal</li>
                       </ol>
                     </nav>
                             <?php
